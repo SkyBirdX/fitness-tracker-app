@@ -12,32 +12,39 @@ export default function AddWorkout() {
       alert("Bitte einloggen!");
       return;
     }
-    await addDoc(collection(db, "workouts"), {
-      uid: auth.currentUser.uid,
-      type,
-      duration,
-      date: new Date()
-    });
-    setType("");
-    setDuration("");
-    alert("Workout gespeichert!");
+    try {
+        await addDoc(collection(db, "workouts"), {
+            uid: auth.currentUser.uid,
+            type,
+            duration,
+            date: new Date()
+        });
+        setType("");
+        setDuration("");
+    } catch (error) {
+        alert("Fehler beim Speichern des Workouts.");
+    }
   };
 
   return (
-    <form onSubmit={handleAdd}>
-      <input
-        value={type}
-        onChange={e => setType(e.target.value)}
-        placeholder="Workout-Typ"
-        required
-      />
-      <input
-        value={duration}
-        onChange={e => setDuration(e.target.value)}
-        placeholder="Dauer (Minuten)"
-        required
-      />
-      <button type="submit">Workout speichern</button>
-    </form>
+    <div className="content-box" style={{ marginBottom: '20px' }}>
+        <h2>Neues Workout</h2>
+        <form onSubmit={handleAdd}>
+            <input
+                value={type}
+                onChange={e => setType(e.target.value)}
+                placeholder="Workout-Typ (z.B. Laufen, Krafttraining)"
+                required
+            />
+            <input
+                value={duration}
+                onChange={e => setDuration(e.target.value)}
+                placeholder="Dauer (Minuten)"
+                type="number"
+                required
+            />
+            <button type="submit">Workout speichern</button>
+        </form>
+    </div>
   );
 }

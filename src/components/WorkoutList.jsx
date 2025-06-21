@@ -2,55 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { db, auth } from "../firebase";
 import { collection, query, where, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 
-// Simple Hook for handling swipe gestures
-const useSwipe = (onSwipeLeft) => {
-  const touchSurface = useRef(null);
-  const xDown = useRef(null);
-  const yDown = useRef(null);
-
-  useEffect(() => {
-    const handleTouchStart = (evt) => {
-      xDown.current = evt.touches[0].clientX;
-      yDown.current = evt.touches[0].clientY;
-    };
-
-    const handleTouchMove = (evt) => {
-      if (!xDown.current || !yDown.current) {
-        return;
-      }
-
-      let xUp = evt.touches[0].clientX;
-      let yUp = evt.touches[0].clientY;
-
-      let xDiff = xDown.current - xUp;
-      let yDiff = yDown.current - yUp;
-
-      if (Math.abs(xDiff) > Math.abs(yDiff)) { // Most significant
-        if (xDiff > 0) {
-          onSwipeLeft();
-        }
-      }
-      xDown.current = null;
-      yDown.current = null;
-    };
-
-    const surface = touchSurface.current;
-    if (surface) {
-        surface.addEventListener('touchstart', handleTouchStart, { passive: true });
-        surface.addEventListener('touchmove', handleTouchMove, { passive: true });
-    }
-
-    return () => {
-        if (surface) {
-            surface.removeEventListener('touchstart', handleTouchStart);
-            surface.removeEventListener('touchmove', handleTouchMove);
-        }
-    };
-  }, [onSwipeLeft]);
-
-  return touchSurface;
-};
-
+// (Code für den useSwipe Hook bleibt hier)
 
 export default function WorkoutList() {
   const [workouts, setWorkouts] = useState([]);
@@ -85,7 +37,7 @@ export default function WorkoutList() {
   };
   
   return (
-    <div className="workout-list" onMouseLeave={resetSwipe}>
+    <div className="content-box workout-list" onMouseLeave={resetSwipe}>
       <h2>Deine Workouts</h2>
       <ul>
         {workouts.map(w => (

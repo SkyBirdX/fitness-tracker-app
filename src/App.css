@@ -1,15 +1,10 @@
 body {
-  min-height: 100vh;
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  color: #e5e7eb; /* Helle Grundschriftfarbe für dunklen Hintergrund */
-  /* Dunkler, animierter Farbverlauf */
+  color: #e5e7eb;
   background: linear-gradient(270deg, #111827, #1e1b4b, #4c1d95, #111827);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 @keyframes gradientBG {
@@ -18,45 +13,62 @@ body {
   100% {background-position: 0% 50%;}
 }
 
-.app-container {
-  max-width: 400px;
+.app-wrapper {
   width: 100%;
-  margin: 0 auto;
-  /* Dunkler, halbtransparenter Hintergrund */
+  min-height: 100vh;
+}
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-content {
+  display: grid;
+  place-items: center; 
+  min-height: 100vh;
+  padding-top: 60px;   
+  box-sizing: border-box;
+}
+
+
+.content-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px; /* Seitlicher Abstand für kleine Bildschirme */
+  box-sizing: border-box;
+}
+
+.content-box {
   background: rgba(17, 24, 39, 0.75);
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  padding: 40px 28px 32px 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 30px 28px;
   backdrop-filter: blur(8px);
 }
 
-h1 {
+h2 {
   text-align: center;
-  color: #c4b5fd; /* Helleres Lila */
-  margin-bottom: 24px;
-  font-size: 2.2rem;
-  letter-spacing: 1px;
-  font-weight: 700;
-}
-
-button, input {
-  font-size: 1rem;
+  margin-top: 0;
+  color: #c4b5fd;
+  margin-bottom: 20px;
 }
 
 input {
   width: 100%;
   padding: 12px 14px;
   margin-bottom: 16px;
-  border: 1.5px solid #4b5563; /* Dunklere Border */
+  border: 1.5px solid #4b5563;
   border-radius: 10px;
   box-sizing: border-box;
   transition: border 0.2s, box-shadow 0.2s;
-  background: #1f2937; /* Dunklerer Input-Hintergrund */
-  color: #e5e7eb; /* Heller Text */
+  background: #1f2937;
+  color: #e5e7eb;
 }
 
 input::placeholder {
@@ -90,7 +102,7 @@ button:hover {
 
 .switch-btn {
   background: none;
-  color: #a78bfa; /* Helleres Lila */
+  color: #a78bfa;
   border: none;
   margin-top: 0;
   text-decoration: underline;
@@ -115,19 +127,6 @@ button:hover {
   padding: 0;
 }
 
-/* ... bestehender Code ... */
-.workout-list li {
-  background: #1f2937;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  color: #d1d5db;
-  border: 1px solid #374151;
-  font-size: 1.05rem;
-  position: relative; /* Wichtig für die Positionierung der Buttons */
-  overflow: hidden; /* Versteckt den Button außerhalb des li-Elements */
-}
-
-/* Container für den Workout-Eintrag und den Löschen-Button */
 .workout-item-container {
   position: relative;
   width: 100%;
@@ -135,7 +134,6 @@ button:hover {
   border-radius: 10px;
 }
 
-/* Der sichtbare Teil des Workout-Eintrags */
 .workout-item-content {
   background: #1f2937;
   padding: 12px 16px;
@@ -146,32 +144,29 @@ button:hover {
   justify-content: space-between;
 }
 
-/* Der Löschen-Button, der dahinter liegt */
 .delete-btn {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   width: 80px;
-  background: #ef4444; /* Rote Farbe für Löschen */
+  background: #ef4444;
   color: white;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transform: translateX(100%); /* Startet außerhalb des sichtbaren Bereichs */
+  transform: translateX(100%);
   transition: transform 0.3s ease;
   font-size: 1.5rem;
   border-radius: 0 10px 10px 0;
 }
 
-/* Zustand, wenn das Item geswiped wurde */
 .workout-item-container.swiped .workout-item-content {
-  transform: translateX(-80px); /* Verschiebt den Inhalt nach links */
+  transform: translateX(-80px);
 }
 
 .workout-item-container.swiped .delete-btn {
-  transform: translateX(0); /* Zeigt den Löschen-Button an */
+  transform: translateX(0);
 }
-

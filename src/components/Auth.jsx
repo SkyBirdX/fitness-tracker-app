@@ -12,10 +12,8 @@ export default function Auth() {
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Eingeloggt!");
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
-        alert("Registriert!");
       }
     } catch (err) {
       alert(err.message);
@@ -23,7 +21,7 @@ export default function Auth() {
   };
 
   return (
-    <div>
+    <div className="content-box">
       <h2 style={{ textAlign: "center", marginBottom: 16 }}>{isLogin ? "Login" : "Registrieren"}</h2>
       <form onSubmit={handleSubmit}>
         <input
