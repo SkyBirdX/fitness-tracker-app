@@ -1,4 +1,3 @@
-// src/components/AddWorkout.js
 import React, { useState } from "react";
 import { db, auth } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -26,8 +25,18 @@ export default function AddWorkout() {
 
   return (
     <form onSubmit={handleAdd}>
-      <input value={type} onChange={e => setType(e.target.value)} placeholder="Workout-Typ" required />
-      <input value={duration} onChange={e => setDuration(e.target.value)} placeholder="Dauer (Minuten)" required />
+      <input
+        value={type}
+        onChange={e => setType(e.target.value)}
+        placeholder="Workout-Typ"
+        required
+      />
+      <input
+        value={duration}
+        onChange={e => setDuration(e.target.value)}
+        placeholder="Dauer (Minuten)"
+        required
+      />
       <button type="submit">Workout speichern</button>
     </form>
   );

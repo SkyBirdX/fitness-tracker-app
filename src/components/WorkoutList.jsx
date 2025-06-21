@@ -1,4 +1,3 @@
-// src/components/WorkoutList.js
 import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
@@ -19,11 +18,13 @@ export default function WorkoutList() {
   }, [auth.currentUser]);
 
   return (
-    <div>
+    <div className="workout-list">
       <h2>Deine Workouts</h2>
       <ul>
         {workouts.map(w => (
-          <li key={w.id}>{w.type} – {w.duration} Minuten ({w.date?.toDate?.().toLocaleString?.() || ""})</li>
+          <li key={w.id}>
+            {w.type} – {w.duration} Minuten
+          </li>
         ))}
       </ul>
     </div>
