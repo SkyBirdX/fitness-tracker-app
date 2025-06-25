@@ -1,9 +1,8 @@
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Deine Firebase-Konfiguration hier einfügen!
+// Wichtig: Ersetze die Werte durch deine eigenen Firebase-Konfigurationsdaten!
 const firebaseConfig = {
     apiKey: "AIzaSyCH1qD4eFjle1ldnxpBbmk4u8TpnRd3vZ8",
     authDomain: "fitness-app-b060f.firebaseapp.com",
@@ -17,4 +16,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const db = getFirestore(app); 

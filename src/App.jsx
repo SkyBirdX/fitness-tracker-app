@@ -4,7 +4,8 @@ import Auth from "./components/Auth.jsx";
 import AddWorkout from "./components/AddWorkout.jsx";
 import WorkoutList from "./components/WorkoutList.jsx";
 import Navbar from "./components/Navbar.jsx";
-import ExercisesPage from "./pages/ExercisesPage.jsx"; // Der korrekte Import
+import ExercisesPage from "./pages/ExercisesPage.jsx";
+import NutritionPage from "./pages/NutritionPage.jsx";
 import { auth } from "./firebase";
 import "./App.css";
 
@@ -28,7 +29,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'white', backgroundColor: '#111827' }}>Loading...</div>;
   }
 
   return (
@@ -43,8 +44,8 @@ function App() {
           <main className="main-content">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              {/* Die korrekte Route mit der korrekten Komponente */}
               <Route path="/exercises" element={<ExercisesPage />} />
+              <Route path="/nutrition" element={<NutritionPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
@@ -54,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 

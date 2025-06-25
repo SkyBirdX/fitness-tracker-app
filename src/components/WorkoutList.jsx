@@ -1,8 +1,53 @@
 import React, { useEffect, useState, useRef } from "react";
 import { db, auth } from "../firebase";
-import { collection, query, where, onSnapshot, deleteDoc, doc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, deleteDoc, doc, orderBy } from "firebase/firestore";
 
-// (Code für den useSwipe Hook bleibt hier)
+const useSwipe = (onSwipeLeft) => {
+  const touchSurface = useRef(null);
+  const xDown = useRef(null);
+  const yDown = useRef(null);
+
+  useEffect(() => {
+    const handleTouchStart = (evt) => {
+      xDown.current = evt.touches[0].clientX;
+      yDown.current = evt.touches[0].clientY;
+    };
+
+    const handleTouchMove = (evt) => {
+      if (!xDown.current || !yDown.current) return;
+
+      let xUp = evt.touches[0].clientX;
+      let yUp = evt.touches[0].clientY;
+
+      let xDiff = xDown.current - xUp;
+      let yDiff = yDown.current - yUp;
+
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+          onSwipeLeft();
+        }
+      }
+      xDown.current = null;
+      yDown.current = null;
+    };
+
+    const surface = touchSurface.current;
+    if (surface) {
+        surface.addEventListener('touchstart', handleTouchStart, { passive: true });
+        surface.addEventListener('touchmove', handleTouchMove, { passive: true });
+    }
+
+    return () => {
+        if (surface) {
+            surface.removeEventListener('touchstart', handleTouchStart);
+            surface.removeEventListener('touchmove', handleTouchMove);
+        }
+    };
+  }, [onSwipeLeft]);
+
+  return touchSurface;
+};
+
 
 export default function WorkoutList() {
   const [workouts, setWorkouts] = useState([]);
@@ -20,10 +65,11 @@ export default function WorkoutList() {
     if (!auth.currentUser) return;
     const q = query(
       collection(db, "workouts"),
-      where("uid", "==", auth.currentUser.uid)
+      where("uid", "==", auth.currentUser.uid),
+      orderBy("date", "desc") // Sortiert die neusten zuerst
     );
     const unsub = onSnapshot(q, (snapshot) => {
-      setWorkouts(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        setWorkouts(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });
     return () => unsub();
   }, []);
@@ -56,4 +102,4 @@ export default function WorkoutList() {
       </ul>
     </div>
   );
-}
+} 
