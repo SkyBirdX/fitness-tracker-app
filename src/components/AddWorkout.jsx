@@ -8,15 +8,16 @@ export default function AddWorkout() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (!auth.currentUser) {
-      alert("Bitte einloggen!");
-      return;
+    if (!auth.currentUser) return;
+    if (!type || !duration) {
+        alert("Bitte fülle alle Felder aus.");
+        return;
     }
     try {
         await addDoc(collection(db, "workouts"), {
             uid: auth.currentUser.uid,
             type,
-            duration,
+            duration: Number(duration),
             date: new Date()
         });
         setType("");
@@ -47,4 +48,4 @@ export default function AddWorkout() {
         </form>
     </div>
   );
-}
+} 
