@@ -39,7 +39,6 @@ export default function ExerciseCard({ exercise }) {
             height="180"
             src={exercise.videoUrl}
             title={exercise.name}
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             style={{ border: "none" }}

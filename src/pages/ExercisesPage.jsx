@@ -6,13 +6,11 @@ import ExerciseCard from "../components/ExerciseCard";
 export default function ExercisesPage() {
   const [filters, setFilters] = useState({ target: null, type: null, equipment: null, level: null });
 
-  // Filterlogik (Trainingsart ist im Beispiel-Datensatz noch nicht enthalten)
   const filteredExercises = exerciseData.filter((ex) => {
     return (
       (!filters.target || ex.target === filters.target) &&
       (!filters.equipment || ex.equipment === filters.equipment) &&
       (!filters.level || ex.level === filters.level)
-      // Trainingsart kann ergänzt werden, wenn im Datensatz vorhanden
     );
   });
 

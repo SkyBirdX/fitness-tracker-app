@@ -39,7 +39,7 @@ body {
 .content-wrapper {
   width: 100%;
   max-width: 600px;
-  padding: 0 20px; /* Seitlicher Abstand für kleine Bildschirme */
+  padding: 0 20px;
   box-sizing: border-box;
 }
 

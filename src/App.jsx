@@ -6,6 +6,7 @@ import WorkoutList from "./components/WorkoutList.jsx";
 import Navbar from "./components/Navbar.jsx";
 import ExercisesPage from "./pages/ExercisesPage.jsx";
 import NutritionPage from "./pages/NutritionPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import { auth } from "./firebase";
 import "./App.css";
 
@@ -46,6 +47,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/exercises" element={<ExercisesPage />} />
               <Route path="/nutrition" element={<NutritionPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>

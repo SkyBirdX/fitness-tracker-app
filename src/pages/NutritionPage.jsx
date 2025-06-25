@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db, auth } from "../firebase";
+import { collection, addDoc, query, where, getDocs, orderBy } from "firebase/firestore";
 
 const macroGoals = {
-  protein: 120, // Beispielziel in Gramm
+  protein: 120,
   fat: 70,
   carbs: 250
 };
@@ -10,17 +12,48 @@ export default function NutritionPage() {
   const [meals, setMeals] = useState([]);
   const [input, setInput] = useState({ name: "", protein: "", fat: "", carbs: "" });
 
+  
+  useEffect(() => {
+    if (!auth.currentUser) return;
+    const fetchMeals = async () => {
+      const q = query(
+        collection(db, "meals"),
+        where("uid", "==", auth.currentUser.uid),
+        orderBy("date", "desc")
+      );
+      const querySnapshot = await getDocs(q);
+      setMeals(querySnapshot.docs.map(doc => doc.data()));
+    };
+    fetchMeals();
+  }, [auth.currentUser]);
+
   const total = meals.reduce((acc, m) => ({
     protein: acc.protein + Number(m.protein),
     fat: acc.fat + Number(m.fat),
     carbs: acc.carbs + Number(m.carbs)
   }), { protein: 0, fat: 0, carbs: 0 });
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     if (!input.name || !input.protein || !input.fat || !input.carbs) return;
-    setMeals([...meals, input]);
-    setInput({ name: "", protein: "", fat: "", carbs: "" });
+    if (!auth.currentUser) {
+      alert("Du musst eingeloggt sein!");
+      return;
+    }
+    try {
+      await addDoc(collection(db, "meals"), {
+        uid: auth.currentUser.uid,
+        name: input.name,
+        protein: Number(input.protein),
+        fat: Number(input.fat),
+        carbs: Number(input.carbs),
+        date: new Date()
+      });
+      setMeals([{ ...input }, ...meals]); 
+      setInput({ name: "", protein: "", fat: "", carbs: "" });
+    } catch (error) {
+      alert("Fehler beim Speichern: " + error.message);
+    }
   };
 
   return (
