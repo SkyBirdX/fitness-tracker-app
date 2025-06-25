@@ -10,13 +10,16 @@ export default function Navbar({ userEmail, onLogout }) {
       </div>
       <nav className="navbar-links">
         <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          Profil
+          Workouts
         </NavLink>
         <NavLink to="/exercises" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
           Übungen
         </NavLink>
         <NavLink to="/nutrition" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
           Ernährung
+        </NavLink>
+        <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+          Profil
         </NavLink>
       </nav>
       <div className="navbar-user-info">
