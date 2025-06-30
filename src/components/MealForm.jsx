@@ -38,7 +38,34 @@ function MealForm({ setMeals }) {
 
   return (
     <form onSubmit={handleAdd}>
-      {/* Eingabefelder */}
+      <input
+        placeholder="Mahlzeit (z.B. Quark mit Beeren)"
+        value={input.name}
+        onChange={e => setInput(i => ({ ...i, name: e.target.value }))}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Protein (g)"
+        value={input.protein}
+        onChange={e => setInput(i => ({ ...i, protein: e.target.value }))}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Fett (g)"
+        value={input.fat}
+        onChange={e => setInput(i => ({ ...i, fat: e.target.value }))}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Kohlenhydrate (g)"
+        value={input.carbs}
+        onChange={e => setInput(i => ({ ...i, carbs: e.target.value }))}
+        required
+      />
+      <button type="submit">Mahlzeit hinzufügen</button>
     </form>
   );
 }
